@@ -1,0 +1,6 @@
+# python=3.8
+pytorch-gpu=1.8.0
+dgl=0.7.0
+# dgl和pytorch都要根据自己的CUDA版本安装
+# https://pytorch.org/get-started/previous-versions/
+# https://www.dgl.ai/pages/start.html
