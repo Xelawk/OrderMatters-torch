@@ -50,6 +50,13 @@ for k, v in tqdm(index_uuid.items()):
     program, v = v.split(os.sep)
     cur_functions_list_file = os.path.join(config.FEA_DIR, program, \
         config.CFG_DFG_GEMINIFEA_VULSEEKERFEA, v, 'functions_list_fea.csv')
+    FLAG_FUNCTION_LIST = 0
+    # functions_list.csv 比 functions_list_fea.csv 多了一列，如果特征数据集提供的是
+    # functions_list.csv，则应取的line[3]和line[4]应该是line[4]和line[5]。
+    if not os.path.exists(cur_functions_list_file):
+        cur_functions_list_file = os.path.join(config.FEA_DIR, program, \
+            config.CFG_DFG_GEMINIFEA_VULSEEKERFEA, v, 'functions_list.csv')
+        FLAG_FUNCTION_LIST = 1
     if not os.path.exists(cur_functions_list_file):
         logging.error('No functions_list.csv in {}'.format(v))
     with open(cur_functions_list_file, 'r') as fp:
@@ -63,7 +70,7 @@ for k, v in tqdm(index_uuid.items()):
             # 如果CFG中存在孤岛节点，continue
             graph_cfg = nx.read_adjlist(os.path.join(config.FEA_DIR, program, \
                 config.CFG_DFG_GEMINIFEA_VULSEEKERFEA, v, line[0]+'_cfg.txt'))
-            adj_arr = np.array(nx.convert_matrix.to_numpy_matrix(graph_cfg, dtype=np.bool))
+            adj_arr = np.array(nx.convert_matrix.to_numpy_matrix(graph_cfg, dtype=bool))
             edge_list = adj_arr.nonzero()
             cfg = dgl_graph(edge_list)
             if cfg.num_nodes() != len(adj_arr):
@@ -90,8 +97,8 @@ for k, v in tqdm(index_uuid.items()):
             
             if line[0] not in func_list_dict:
                 func_list_arr.append(line[0])
-            value = os.path.join(line[3], config.CFG_DFG_GEMINIFEA_VULSEEKERFEA, \
-                                 line[4], line[0])
+            value = os.path.join(line[3+FLAG_FUNCTION_LIST], config.CFG_DFG_GEMINIFEA_VULSEEKERFEA, \
+                                 line[4+FLAG_FUNCTION_LIST], line[0])
             func_list_dict[line[0]].append(value)
 
 logging.debug('len(func_list_arr): {}'.format(len(func_list_arr)))

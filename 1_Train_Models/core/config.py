@@ -30,18 +30,18 @@ OPT_LEVELS = ['all'] # ['o0', 'o1', 'o2', 'o3']
 TRAIN_DATASET_NUM = 5000
 RETRAIN_DATASET_NUM = 10000  # ignore for now
 
-WORD2VEC_EMBEDDING_SIZE = 64
+WORD2VEC_EMBEDDING_SIZE = 50
 
 # TRAIN
 NUM_EPOCH = 20
 
 # DATA ROOT
-DATA_ROOT_DIR = '/home1/mwl/BinBox/data/'
+DATA_ROOT_DIR = '/Binary_Similarity/Models/Gemini_Vulseeker_Focus/Gemini_Vulseeker_Focus_Data/Train_Modle'
 RETRAIN_DATA_ROOT_DIR = '/home1/mwl/BinBox/data/retrain/'   # retrain不管
 # FEATURE
 FEA_DIR = os.path.join(DATA_ROOT_DIR, 'features')
 CFG_DFG_GEMINIFEA_VULSEEKERFEA = 'cfg_dfg_geminifea_vulseekerfea'
-I2VFEA = 'i2v_norm5_' + str(WORD2VEC_EMBEDDING_SIZE)  # i2v_normn_size
+I2VFEA = 'i2v_norm1_' + str(WORD2VEC_EMBEDDING_SIZE)  # i2v_normn_size
 
 FEATURE_GEMINI_DIMENSION = 7
 FEATURE_VULSEEKER_DIMENSION = 8
