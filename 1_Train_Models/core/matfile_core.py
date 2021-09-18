@@ -82,9 +82,9 @@ def __generate_cfg_dfg_func(func):
 
 def __generate_cfg_func(func):
     graph_cfg = nx.read_adjlist(os.path.join(config.FEA_DIR, func + '_cfg.txt'))
-    adj_arr = np.array(nx.convert_matrix.to_numpy_matrix(graph_cfg, dtype=float))
-    adj_str = adj_arr.astype(np.string_)
-    cfg = b','.join(list(itertools.chain.from_iterable(adj_str)))
+    adj_arr = np.array(nx.convert_matrix.to_numpy_matrix(graph_cfg, dtype=np.bool))
+    # adj_str = adj_arr.astype(np.string_)
+    # cfg = b','.join(list(itertools.chain.from_iterable(adj_str)))
 
    # graph_dfg = nx.read_adjlist(os.path.join(config.FEA_DIR, func + '_dfg.txt'))
     
@@ -101,7 +101,7 @@ def __generate_cfg_func(func):
     # logging.debug('cfg:{}'.format(cfg))
    # logging.debug('dfg:{}'.format(dfg))
     
-    return cfg
+    return adj_arr
 
 
 
@@ -123,7 +123,7 @@ def generate_cfg_dfg_pair(pair_list):
 def __generate_feature_func(func, l, r, flag): # modified
     node_vector = []
     block_feature_dic = {}
-    graph_cfg = nx.read_adjlist(os.path.join(config.FEA_DIR, func + '_cfg.txt'), create_using=nx.DiGraph())
+    graph_cfg = nx.read_adjlist(os.path.join(config.FEA_DIR, func + '_cfg.txt'))
 
     if flag == 2:
         func = func.replace(config.CFG_DFG_GEMINIFEA_VULSEEKERFEA, config.I2VFEA)

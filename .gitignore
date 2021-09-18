@@ -1,2 +1,7 @@
 __pycache__/
 test.py
+.vscode/
+dataset.json
+dataset.mat
+embeddings_lib.json
+query.json
